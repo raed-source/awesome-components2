@@ -1,0 +1,77 @@
+<mat-card [formGroup]="mainForm" class="main-form">
+  <mat-card-title>Inscription</mat-card-title>
+  <!-- personal infro -->
+  <mat-card class="form-card" formGroupName="personalInfo">
+      <mat-card-subtitle>Informationss personnelles</mat-card-subtitle>
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Prénom : </mat-label>
+          <input type="text" matInput formControlName="firstname">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Nom :</mat-label>
+          <input type="text" matInput formControlName="lastname">
+        </mat-form-field >
+      </div>
+  </mat-card>
+  <!-- contact preferenes -->
+  <mat-card class="form-card">
+      <mat-card-subtitle>Comment préférez-vous que l'on vous contacte ?</mat-card-subtitle>
+      <mat-radio-group [formControl]="contactPreferenceCtrl">
+        <mat-radio-button value="email">Mail</mat-radio-button>
+        <mat-radio-button value="phone">Téléphone</mat-radio-button>
+      </mat-radio-group>
+  </mat-card>
+<!-- email -->
+  <mat-card class="form-card" [formGroup] ="emailForm" *ngIf="showEmailCtrl$ | async">
+    <mat-card-subtitle>Email</mat-card-subtitle>
+    <div class="form-row">
+      <mat-form-field appearance="fill">
+        <mat-label>Adresse Mail : </mat-label>
+        <input type="text" matInput formControlName="email">
+        <mat-error>{{ getFormControlErrorText(emailCtrl) }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Confirmez votre Adresse Mail :</mat-label>
+        <input type="text" matInput formControlName="confirm">
+        <mat-error>{{ getFormControlErrorText(confirmEmailCtrl) }}</mat-error>
+      </mat-form-field >
+    </div>
+  </mat-card>
+  <!-- phone -->
+  <mat-card class="form-card" *ngIf="showPhoneCtrl$ | async">
+      <mat-card-subtitle>Téléphone</mat-card-subtitle>
+      <mat-form-field appearance="fill">
+        <mat-label>Téléphone :</mat-label>
+        <input type="text" matInput [formControl]="phoneCtrl">
+      </mat-form-field >
+  </mat-card>
+
+  <!-- login -->
+  <mat-card class="form-card" [formGroup]="loginInfoForm">
+      <mat-card-subtitle>Informations de connexion</mat-card-subtitle>
+      <mat-form-field appearance="fill">
+        <mat-label>Nom d'utilisateur :</mat-label>
+        <input type="text" matInput formControlName="username">
+      </mat-form-field >
+      <mat-card-subtitle>Email</mat-card-subtitle>
+      <div class="form-row">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Mot de passe : </mat-label>
+          <input type="password" matInput formControlName="password">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Confirmez votre mot de passe :</mat-label>
+          <input type="password" matInput formControlName="confirmPassword">
+        </mat-form-field >
+      </div>
+  </mat-card>
+  <mat-card-actions *ngIf="mainForm.valid">
+    <button mat-flat-button color="primary" (click)="onSubmitForm()">ENREGISTRER</button>
+  </mat-card-actions>
+</mat-card>
+
+
+
+
